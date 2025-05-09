@@ -1,14 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://tps1dh0ud645"]
+[gd_scene load_steps=4 format=3 uid="uid://tps1dh0ud645"]
 
 [ext_resource type="Script" uid="uid://tjdg3bxa33qf" path="res://scripts/settings_menu.gd" id="1_cr101"]
-[ext_resource type="FontFile" uid="uid://vtfqqbyvmdsr" path="res://assets/font/ExxxitedDemoRegular-0vBX4.otf" id="2_wswnh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_05p07"]
-font = ExtResource("2_wswnh")
 font_size = 67
 
 [sub_resource type="LabelSettings" id="LabelSettings_cr101"]
-font = ExtResource("2_wswnh")
 font_size = 46
 
 [node name="Control" type="AspectRatioContainer"]
@@ -82,7 +79,6 @@ value = 1.0
 
 [node name="ExitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_wswnh")
 theme_override_font_sizes/font_size = 52
 text = "Back
 "
