@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://tps1dh0ud645"]
+
+[ext_resource type="Script" uid="uid://tjdg3bxa33qf" path="res://scenes/settings_menu.gd" id="1_cr101"]
+[ext_resource type="FontFile" uid="uid://vtfqqbyvmdsr" path="res://assets/font/ExxxitedDemoRegular-0vBX4.otf" id="2_wswnh"]
+[ext_resource type="AudioStream" uid="uid://bwon3cijmsbqi" path="res://assets/audio/music.mp3" id="3_labj1"]
+[ext_resource type="AudioStream" uid="uid://b2brtkiw74f0f" path="res://assets/audio/oil-cooking.mp3" id="4_lwwgp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_05p07"]
+font = ExtResource("2_wswnh")
+font_size = 67
+
+[sub_resource type="LabelSettings" id="LabelSettings_cr101"]
+font = ExtResource("2_wswnh")
+font_size = 46
+
+[node name="Control" type="AspectRatioContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cr101")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Sound"
+label_settings = SubResource("LabelSettings_05p07")
+horizontal_alignment = 1
+
+[node name="Master" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="VBoxContainer/Master"]
+layout_mode = 2
+text = "Master"
+label_settings = SubResource("LabelSettings_cr101")
+horizontal_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="VBoxContainer/Master"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="SFX" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="VBoxContainer/SFX"]
+layout_mode = 2
+text = "SFX"
+label_settings = SubResource("LabelSettings_cr101")
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer/SFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="Music" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="VBoxContainer/Music"]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_cr101")
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer/Music"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="ExitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_wswnh")
+theme_override_font_sizes/font_size = 52
+text = "Back
+"
+
+[node name="MusicStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_labj1")
+autoplay = true
+bus = &"Music"
+
+[node name="SFXStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lwwgp")
+autoplay = true
+bus = &"SFX"
+
+[connection signal="value_changed" from="VBoxContainer/Master/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/SFX/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

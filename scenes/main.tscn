@@ -1,0 +1,250 @@
+[gd_scene load_steps=17 format=3 uid="uid://bkfv6lgmoct7w"]
+
+[ext_resource type="Script" uid="uid://clvorxf6panjn" path="res://scenes/main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://dslrnmam05k62" path="res://spawner.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cwn2uu4we4sl2" path="res://hot_area.gd" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://wg0ajtacufw4" path="res://assets/sprites/cup.png" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://b2brtkiw74f0f" path="res://assets/audio/oil-cooking.mp3" id="5_lquwl"]
+[ext_resource type="AudioStream" uid="uid://bwon3cijmsbqi" path="res://assets/audio/music.mp3" id="6_7mycd"]
+[ext_resource type="FontFile" uid="uid://vtfqqbyvmdsr" path="res://assets/font/ExxxitedDemoRegular-0vBX4.otf" id="6_272bh"]
+[ext_resource type="Script" uid="uid://cqjwji3xljlx" path="res://scenes/main_menu.gd" id="8_tipki"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dm0k"]
+size = Vector2(97.1446, 648)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_1bvp3"]
+b = Vector2(54, 350)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_lquwl"]
+a = Vector2(-86, -15)
+b = Vector2(7, 16)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_7mycd"]
+a = Vector2(0, 1)
+b = Vector2(118, -25)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_272bh"]
+a = Vector2(67, -231)
+b = Vector2(56, 153)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(601, 81.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(744, 646)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lquwl"]
+font = ExtResource("6_272bh")
+font_size = 35
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_0xm2m")
+mouse_state = "FORCE"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_right = 73.0
+offset_bottom = 648.0
+color = Color(0.550958, 0.550959, 0.550958, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(41.5, 324)
+shape = SubResource("RectangleShape2D_7dm0k")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(674, 0)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+offset_right = 73.0
+offset_bottom = 648.0
+color = Color(0.54902, 0.54902, 0.54902, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(31.5, 324)
+shape = SubResource("RectangleShape2D_7dm0k")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(678, 574)
+rotation = 1.57033
+scale = Vector2(0.999864, 0.938314)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D3"]
+offset_right = 73.0
+offset_bottom = 648.0
+color = Color(0.54902, 0.54902, 0.54902, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(34.4277, 324)
+shape = SubResource("RectangleShape2D_7dm0k")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(678, -76.0001)
+rotation = 1.57033
+scale = Vector2(0.999864, 0.938314)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(36.5, 324)
+shape = SubResource("RectangleShape2D_7dm0k")
+
+[node name="DropPoint" type="Node2D" parent="."]
+position = Vector2(949, 276)
+
+[node name="Cup" type="Node2D" parent="."]
+
+[node name="Cup" type="Sprite2D" parent="Cup"]
+position = Vector2(952, 365)
+scale = Vector2(1.44, 1.44)
+texture = ExtResource("4_1bvp3")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Cup"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cup/StaticBody2D4"]
+position = Vector2(807, 195)
+shape = SubResource("SegmentShape2D_1bvp3")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Cup"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cup/StaticBody2D5"]
+position = Vector2(946, 557)
+shape = SubResource("SegmentShape2D_lquwl")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Cup"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cup/StaticBody2D6"]
+position = Vector2(952, 571)
+shape = SubResource("SegmentShape2D_7mycd")
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="Cup"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cup/StaticBody2D7"]
+position = Vector2(1013, 394)
+shape = SubResource("SegmentShape2D_272bh")
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(369, 267)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_ig7tw")
+spawn_count = 200
+
+[node name="HotArea" type="Area2D" parent="."]
+position = Vector2(380, 532)
+script = ExtResource("3_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HotArea"]
+position = Vector2(-8.5, 0)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="ColorRect" type="ColorRect" parent="HotArea"]
+offset_left = -308.0
+offset_top = -30.0
+offset_right = 695.0
+offset_bottom = 41.0
+scale = Vector2(0.600001, 1)
+color = Color(1, 0.802, 0.00999999, 0.47451)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="HotArea"]
+position = Vector2(-1, 37)
+lifetime = 0.31
+emission_shape = 3
+emission_rect_extents = Vector2(300, 1)
+gravity = Vector2(0, -980)
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color = Color(1, 1, 1, 0.211765)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HotArea"]
+stream = ExtResource("5_lquwl")
+volume_db = -13.224
+parameters/looping = true
+
+[node name="ControlArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ControlArea"]
+position = Vector2(374, 322)
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Score" type="Label" parent="."]
+offset_left = 761.0
+offset_top = 3.0
+offset_right = 881.0
+offset_bottom = 54.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_lquwl")
+
+[node name="Best" type="Label" parent="."]
+offset_left = 761.0
+offset_top = 47.0
+offset_right = 881.0
+offset_bottom = 98.0
+text = "Best: 0"
+label_settings = SubResource("LabelSettings_lquwl")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_7mycd")
+volume_db = -20.145
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="ScoreAudioPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+offset_right = 59.0
+offset_bottom = 31.0
+
+[node name="PauseButton" type="Button" parent="AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("6_272bh")
+theme_override_font_sizes/font_size = 31
+text = "PAUSE"
+
+[node name="PauseMenu" type="AspectRatioContainer" parent="."]
+process_mode = 2
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("8_tipki")
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.368627)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_272bh")
+theme_override_font_sizes/font_size = 52
+text = "Resume"
+
+[node name="RestartButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_272bh")
+theme_override_font_sizes/font_size = 52
+text = "Restart"
+
+[node name="ExitButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_272bh")
+theme_override_font_sizes/font_size = 52
+text = "Exit"
+
+[connection signal="body_entered" from="HotArea" to="HotArea" method="_on_body_entered"]
+[connection signal="body_exited" from="HotArea" to="HotArea" method="_on_body_exited"]
+[connection signal="pressed" from="AspectRatioContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
