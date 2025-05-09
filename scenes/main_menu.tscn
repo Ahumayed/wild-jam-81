@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dycp0i8slrvrx"]
 
 [ext_resource type="FontFile" uid="uid://vtfqqbyvmdsr" path="res://assets/font/ExxxitedDemoRegular-0vBX4.otf" id="1_06t4h"]
-[ext_resource type="Script" uid="uid://cqjwji3xljlx" path="res://scenes/main_menu.gd" id="1_7vrkn"]
+[ext_resource type="Script" uid="uid://cqjwji3xljlx" path="res://scripts/main_menu.gd" id="1_7vrkn"]
 
 [node name="Control" type="AspectRatioContainer"]
 anchors_preset = 15

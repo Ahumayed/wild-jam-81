@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://tps1dh0ud645"]
+[gd_scene load_steps=5 format=3 uid="uid://tps1dh0ud645"]
 
-[ext_resource type="Script" uid="uid://tjdg3bxa33qf" path="res://scenes/settings_menu.gd" id="1_cr101"]
+[ext_resource type="Script" uid="uid://tjdg3bxa33qf" path="res://scripts/settings_menu.gd" id="1_cr101"]
 [ext_resource type="FontFile" uid="uid://vtfqqbyvmdsr" path="res://assets/font/ExxxitedDemoRegular-0vBX4.otf" id="2_wswnh"]
-[ext_resource type="AudioStream" uid="uid://bwon3cijmsbqi" path="res://assets/audio/music.mp3" id="3_labj1"]
-[ext_resource type="AudioStream" uid="uid://b2brtkiw74f0f" path="res://assets/audio/oil-cooking.mp3" id="4_lwwgp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_05p07"]
 font = ExtResource("2_wswnh")
@@ -88,16 +86,6 @@ theme_override_fonts/font = ExtResource("2_wswnh")
 theme_override_font_sizes/font_size = 52
 text = "Back
 "
-
-[node name="MusicStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_labj1")
-autoplay = true
-bus = &"Music"
-
-[node name="SFXStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_lwwgp")
-autoplay = true
-bus = &"SFX"
 
 [connection signal="value_changed" from="VBoxContainer/Master/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/SFX/SFXSlider" to="." method="_on_sfx_slider_value_changed"]

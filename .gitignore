@@ -1,3 +1,50 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Godot-specific
+.import/
+export.cfg
+export_presets.cfg
+*.godot/imported/*
+*.translation
+
+# macOS-specific
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Godot temporary/editor files
+*.tmp
+*.converted.res
+*.converted.scn
+*.imported.res
+*.imported.scn
+
+# Build files (if exporting builds)
+bin/
+*.exe
+*.apk
+*.aab
+*.pck
+*.zip
+*.dmg
+*.xcodeproj
+*.xcworkspace
+*.xcuser*
+*.xcassets
+*.ipa
+
+# Visual Studio Code or other IDEs
+.vscode/
+.idea/
+
+# Godot C# (Mono) specific
+.mono/
+data_*/
+
+# Logs or debug dumps
+*.log
+

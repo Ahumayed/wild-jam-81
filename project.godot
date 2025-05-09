@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="wild-jam-80"
+config/name="wild-jam-81"
 run/main_scene="uid://dycp0i8slrvrx"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
