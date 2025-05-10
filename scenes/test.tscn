@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://bw04hg3dbjm46"]
+[gd_scene load_steps=2 format=3 uid="uid://bw04hg3dbjm46"]
+
+[ext_resource type="Script" uid="uid://b0f1gdlj1f55x" path="res://scripts/cave_generation/cave_generator.gd" id="1_errlg"]
 
 [node name="Test" type="Node2D"]
+
+[node name="CaveGenerator" type="Node2D" parent="."]
+script = ExtResource("1_errlg")
+metadata/_custom_type_script = "uid://b0f1gdlj1f55x"

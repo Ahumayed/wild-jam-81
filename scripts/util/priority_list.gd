@@ -1,4 +1,4 @@
-class_name PriorityQueue
+class_name PriorityList
 extends RefCounted
 
 var _decider_func: Callable
