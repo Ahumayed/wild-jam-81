@@ -18,6 +18,9 @@ func append(value, priority: float) -> void:
 func find(i: int):
 	return _heap[i].value
 
+func size() -> int:
+	return _heap.size()
+
 func _cascade_up(i: int) -> void:
 	if i == 0:
 		return
