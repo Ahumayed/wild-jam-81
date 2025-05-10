@@ -17,8 +17,20 @@ func generate_cave(gen_seed: int = -1) -> PriorityList:
 	var rooms := PriorityList.new(func(a: float, b: float):
 		return a < b
 	)
+
+	for _i in range(cave_room_count):
+		var room := _generate_room(
+			Vector2i(
+				randi_range(0, cave_size.x),
+				randi_range(0, cave_size.y)
+			),
+			rng
+		)
+		var dst: float = room.center.distance_to(Vector2i.ZERO)
+		rooms.append(room, dst)
+
 	return rooms
 
-func generate_room(pos: Vector2) -> Room:
+func _generate_room(pos: Vector2, rng: RandomNumberGenerator) -> Room:
 	var room := Room.new(pos)
 	return room
