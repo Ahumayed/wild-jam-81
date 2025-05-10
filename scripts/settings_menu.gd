@@ -1,5 +1,7 @@
 extends AspectRatioContainer
 
+@export var main_menu_scene_path: String = "res://scenes/main_menu.tscn"
+
 var master_volume = 0
 var sfx_volume = 0
 var music_volume = 0
@@ -7,7 +9,6 @@ var music_volume = 0
 @onready var master_slider: HSlider = $VBoxContainer/Master/MasterSlider
 @onready var sfx_slider: HSlider = $VBoxContainer/SFX/SFXSlider
 @onready var music_slider: HSlider = $VBoxContainer/Music/MusicSlider
-
 
 func _ready() -> void:
 	master_volume = AudioServer.get_bus_volume_linear(0)
@@ -20,7 +21,7 @@ func _ready() -> void:
 	music_slider.value = music_volume
 	
 func _on_exit_button_pressed() -> void:
-	Global.change_scene("res://scenes/main_menu.tscn")
+	Global.change_scene(main_menu_scene_path)
 
 
 func _on_master_slider_value_changed(value: float) -> void:
