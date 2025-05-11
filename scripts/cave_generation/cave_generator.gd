@@ -79,12 +79,12 @@ func _find_rooms(cave: Cave) -> void:
 			for pos in room.cells:
 				cave.walls[pos] = true
 		else:
-			cave.rooms.append(room, Vector2i.ZERO.distance_to(room.mean_pos))
+			cave.rooms.append(room, room.mean_y_level)
 
 func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i) -> Room:
 	var room := Room.new()
 	room.cells = [from]
-	var pos_sum := Vector2i.ZERO
+	var y_sum := 0.0
 
 	var current_cells := [from]
 	while not current_cells.is_empty():
@@ -95,13 +95,13 @@ func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i
 		
 		visited[cell] = true
 		room.cells.append(cell)
-		pos_sum += cell
+		y_sum += cell.y
 		var surrounding := _get_surrounding_cells(cave.walls, cell)
 		
 		for neighbor in surrounding:
 			current_cells.append(neighbor)
 
-	room.mean_pos = pos_sum / room.cells.size()
+	room.mean_y_level = y_sum / room.cells.size()
 	return room
 
 func _bridge_rooms(cave: Cave, rng: RandomNumberGenerator) -> void:
