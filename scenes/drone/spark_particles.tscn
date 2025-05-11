@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://c44qbyfhbgp7k"]
+
+[sub_resource type="Curve" id="Curve_t5i4v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qmlfp"]
+curve = SubResource("Curve_t5i4v")
+
+[sub_resource type="Curve" id="Curve_s7kgr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_72qv6"]
+curve = SubResource("Curve_s7kgr")
+
+[sub_resource type="Curve" id="Curve_3gjq8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.274725), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pfxu3"]
+curve = SubResource("Curve_3gjq8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ox6hk"]
+particle_flag_disable_z = true
+spread = 12.0
+initial_velocity_min = 100.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_72qv6")
+scale_over_velocity_curve = SubResource("CurveTexture_pfxu3")
+color = Color(0.968627, 0.862745, 0.243137, 1)
+alpha_curve = SubResource("CurveTexture_qmlfp")
+turbulence_noise_strength = 0.15
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[node name="SparkParticles" type="GPUParticles2D"]
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+trail_enabled = true
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_ox6hk")

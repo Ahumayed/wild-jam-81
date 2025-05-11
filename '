@@ -1,0 +1,43 @@
+class_name Drone
+extends RigidBody2D
+
+@export_category("Movement Variables")
+@onready var fly_up_max_speed: float = 500.0
+@onready var vertical_acceleration: float = 250.0
+@onready var vertical_stabilization_accel: float = 50.0
+
+@onready var horizontal_acceleration: float = 100.0
+@onready var horizontal_max_speed: float = 250.0
+@onready var horizontal_stabilization_accel: float = 50.0
+
+@onready var disable_timer: Timer = $DisableTimer
+
+@export_category("Display")
+@onready var spark_particles: GPUParticles2D = $SparkParticles
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if Input.is_action_pressed("fly_up") and state.linear_velocity.y < fly_up_max_speed:
+		var force := mass * Vector2(0, -vertical_acceleration)
+		apply_central_force(force)
+	elif state.linear_velocity.y < 0:
+		var force := mass * Vector2(0, vertical_stabilization_accel)
+		apply_central_force(force)
+	
+	# Counteract gravity unless they want to fall
+	if not Input.is_action_pressed("fly_down"):
+		apply_central_force(-state.total_gravity)
+	elif state.linear_velocity.y > 0:
+		var force := mass * Vector2(0, -vertical_stabilization_accel)
+		apply_central_force(force)
+	
+	if Input.is_action_pressed("right"):
+		pass
+	elif Input.is_action_pressed("left"):
+		pass
+	elif linear_velocity.x > 0:
+		pass
+	elif linear_velocity.x < 0:
+		pass
+	
+	
