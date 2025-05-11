@@ -1,9 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://bw04hg3dbjm46"]
 
-[ext_resource type="Script" uid="uid://b0f1gdlj1f55x" path="res://scripts/cave_generation/cave_generator.gd" id="1_errlg"]
+[ext_resource type="PackedScene" uid="uid://camqqqwadhrk" path="res://scenes/drone/drone.tscn" id="4_74lek"]
 
 [node name="Test" type="Node2D"]
 
-[node name="CaveGenerator" type="Node2D" parent="."]
-script = ExtResource("1_errlg")
-metadata/_custom_type_script = "uid://b0f1gdlj1f55x"
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Drone" parent="." instance=ExtResource("4_74lek")]
+position = Vector2(278, 143)
+gravity_scale = 0.4
