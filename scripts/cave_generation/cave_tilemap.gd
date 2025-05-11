@@ -21,7 +21,6 @@ func _ready() -> void:
 			if is_wall:
 				set_cell(pos, source_id, cave_tile_atlas_coords)
 	
-	cave.room.walls.print()
 	for i in range(gem_count):
 		var j: int = (cave.room.walls.size() - 1) / (i + 1)
 		var wall: Vector2i = cave.room.walls.find(j)

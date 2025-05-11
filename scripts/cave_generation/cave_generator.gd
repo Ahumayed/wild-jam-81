@@ -102,7 +102,6 @@ func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i
 
 		var walls := _get_surrounding_walls(cave.walls, cell)
 		for wall in walls:
-			@warning_ignore("INTEGER_DIVISION")
 			room.walls.append(wall, wall.y)
 
 	return room

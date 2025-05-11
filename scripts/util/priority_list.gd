@@ -36,8 +36,8 @@ func _cascade_up(i: int) -> void:
 	while i > 0:
 		var parent_idx = _parent(i)
 
-		# If the current node should be higher priority than the parent, swap them
 		if _decider_func.call(_heap[i].priority, _heap[parent_idx].priority):
+			print_debug(str(_heap[i].priority) + " is less than " + str(_heap[parent_idx].priority))
 			_swap(i, parent_idx)
 			i = parent_idx
 		else:
@@ -49,8 +49,7 @@ func _swap(i: int, j: int) -> void:
 	_heap[j] = temp
 
 func _parent(i: int) -> int:
-	@warning_ignore("INTEGER_DIVISION")
-	return floor((i - 1) / 2)
+	return floor(float(i - 1) / float(2))
 
 func _left(i: int) -> int:
 	return (2 * i) + 1
