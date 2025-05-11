@@ -2,6 +2,7 @@ class_name CaveTileMap
 extends TileMapLayer
 
 @export var cave_tile_atlas_coords: Vector2i
+@export var source_id: int = 0
 
 @onready var cave_generator: CaveGenerator = $CaveGenerator
 
@@ -15,4 +16,4 @@ func _ready() -> void:
 			var is_wall: bool = cave.walls[pos]
 			
 			if is_wall:
-				set_cell(pos, 1, cave_tile_atlas_coords)
+				set_cell(pos, source_id, cave_tile_atlas_coords)

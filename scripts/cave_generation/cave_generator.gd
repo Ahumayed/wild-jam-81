@@ -4,16 +4,14 @@ extends Node2D
 @export var cave_size := Vector2i(100, 100)
 @export var iteration_count := 5
 @export var wall_probability: int = 40
+@export var make_bridges: bool = true
+@export var min_cave_size: int = 50
 
 const DIRECTIONS = [
 	Vector2i.RIGHT,
 	Vector2i.LEFT,
 	Vector2i.UP,
 	Vector2i.DOWN,
-	Vector2i(1, 1),
-	Vector2i(-1, 1),
-	Vector2i(1, -1),
-	Vector2i(-1, -1)
 ]
 
 func _ready() -> void:
@@ -27,6 +25,9 @@ func generate_cave(gen_seed: int = -1) -> Cave:
 
 	_random_fill(cave, rng)
 	_apply_cellular_automata(cave)
+	_find_rooms(cave)
+	if make_bridges:
+		_bridge_rooms(cave, rng)
 
 	return cave
 
@@ -65,6 +66,60 @@ func _apply_cellular_automata(cave: Cave) -> void:
 				else:
 					cave.walls[pos] = false
 
+func _find_rooms(cave: Cave) -> void:
+	var visited: Dictionary[Vector2i, bool] = {}
+
+	for cell: Vector2i in cave.walls:
+		if cave.walls[cell] or cell in visited:
+			continue
+
+		var room := _flood_fill(cave, visited, cell)
+		
+		if room.cells.size() < min_cave_size:
+			for pos in room.cells:
+				cave.walls[pos] = true
+		else:
+			cave.rooms.append(room, Vector2i.ZERO.distance_to(room.mean_pos))
+
+func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i) -> Room:
+	var room := Room.new()
+	room.cells = [from]
+	var pos_sum := Vector2i.ZERO
+
+	var current_cells := [from]
+	while not current_cells.is_empty():
+		var cell: Vector2i = current_cells.pop_back()
+		
+		if cell in visited:
+			continue
+		
+		visited[cell] = true
+		room.cells.append(cell)
+		pos_sum += cell
+		var surrounding := _get_surrounding_cells(cave.walls, cell)
+		
+		for neighbor in surrounding:
+			current_cells.append(neighbor)
+
+	room.mean_pos = pos_sum / room.cells.size()
+	return room
+
+func _bridge_rooms(cave: Cave, rng: RandomNumberGenerator) -> void:
+	pass
+
+func _get_surrounding_cells(walls: Dictionary[Vector2i, bool], pos: Vector2i) -> Array:
+	var cells := []
+
+	for direction: Vector2i in DIRECTIONS:
+		var neighbor := pos + direction
+		
+		if not (neighbor in walls) or walls[neighbor]:
+			continue
+
+		cells.append(neighbor)
+
+	return cells
+
 func _get_wall_count(walls: Dictionary[Vector2i, bool], pos: Vector2i) -> int:
 	var count: int = 0
 
@@ -95,7 +150,11 @@ func _get_nearby_wall_count(cave: Cave, pos: Vector2i) -> int:
 class Cave:
 	var walls: Dictionary[Vector2i, bool]
 	var size: Vector2i
+	var rooms: PriorityList
 
 	func _init(_size: Vector2i) -> void:
 		size = _size
 		walls = {}
+		rooms = PriorityList.new(func(a, b):
+			return a < b
+		)
