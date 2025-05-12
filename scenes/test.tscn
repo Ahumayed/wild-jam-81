@@ -265,4 +265,5 @@ texture = SubResource("GradientTexture2D_lpvoh")
 environment = SubResource("Environment_74lek")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0, 0, 1)
