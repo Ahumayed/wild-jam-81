@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bw04hg3dbjm46"]
+[gd_scene load_steps=17 format=3 uid="uid://bw04hg3dbjm46"]
 
 [ext_resource type="Script" uid="uid://bapwa4yp3pqcq" path="res://scripts/cave_generation/cave_tilemap.gd" id="1_bl13t"]
 [ext_resource type="Texture2D" uid="uid://clgwpg842p0qf" path="res://icon.svg" id="1_iyx0m"]
@@ -234,6 +234,9 @@ fill_from = Vector2(0.972016, 0.889798)
 
 [sub_resource type="Environment" id="Environment_74lek"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74lek"]
+size = Vector2(243, 308)
+
 [node name="Test" type="Node2D"]
 
 [node name="CaveTileMap" type="TileMapLayer" parent="."]
@@ -248,6 +251,7 @@ metadata/_custom_type_script = "uid://b0f1gdlj1f55x"
 
 [node name="Drone" parent="." instance=ExtResource("4_74lek")]
 position = Vector2(151, 75)
+gravity_scale = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="Drone"]
 
@@ -267,3 +271,10 @@ environment = SubResource("Environment_74lek")
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(0, 0, 0, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(431, 102)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-51.5, 4)
+shape = SubResource("RectangleShape2D_74lek")
