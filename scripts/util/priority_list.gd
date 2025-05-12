@@ -37,7 +37,6 @@ func _cascade_up(i: int) -> void:
 		var parent_idx = _parent(i)
 
 		if _decider_func.call(_heap[i].priority, _heap[parent_idx].priority):
-			print_debug(str(_heap[i].priority) + " is less than " + str(_heap[parent_idx].priority))
 			_swap(i, parent_idx)
 			i = parent_idx
 		else:
