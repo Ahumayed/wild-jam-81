@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bapwa4yp3pqcq" path="res://scripts/cave_generation/cave_tilemap.gd" id="1_bl13t"]
 [ext_resource type="Script" uid="uid://b0f1gdlj1f55x" path="res://scripts/cave_generation/cave_generator.gd" id="2_iyx0m"]
 [ext_resource type="PackedScene" uid="uid://camqqqwadhrk" path="res://scenes/drone/drone.tscn" id="4_74lek"]
+[ext_resource type="PackedScene" uid="uid://c27joho5gf3pm" path="res://scenes/collectable/collectable.tscn" id="5_j5jx5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_74lek"]
 
@@ -309,3 +310,8 @@ environment = SubResource("Environment_74lek")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
+
+[node name="Collectable" parent="." instance=ExtResource("5_j5jx5")]
+position = Vector2(155, 97)
+outer_radius = 10.0
+inner_radius = 5.0
