@@ -13,6 +13,8 @@ func append(value, priority: float) -> void:
 
 	if _heap.size() == 1: # if the element jsut added was the first element, no need to check
 		return
+	
+	_cascade_up(_heap.size() - 1)
 
 # cant use 'get' because its a native godot function :(
 func find(i: int):
@@ -21,30 +23,33 @@ func find(i: int):
 func size() -> int:
 	return _heap.size()
 
-func _cascade_up(i: int) -> void:
-	if i == 0:
-		return
+func has(value) -> bool:
+	return value in _heap	
 
-	var node = _heap[i]
-	var parent_idx := _parent(i)
-	var parent := _heap[parent_idx]
-	
-	if _decider_func.call(parent.priority, node.priority):
-		_swap(i, parent_idx)
-		_cascade_up(parent_idx)
+func print() -> void:
+	for node in _heap:
+		print()
+		print(node.priority)
+		print()
+
+func _cascade_up(i: int) -> void:
+	while i > 0:
+		var parent_idx = _parent(i)
+
+		if _decider_func.call(_heap[i].priority, _heap[parent_idx].priority):
+			print_debug(str(_heap[i].priority) + " is less than " + str(_heap[parent_idx].priority))
+			_swap(i, parent_idx)
+			i = parent_idx
+		else:
+			break
 
 func _swap(i: int, j: int) -> void:
-	var n1 = _heap[i]
-	var n2 = _heap[j]
-
-	_heap[i].priority = n2.priority
-	_heap[i].value = n2.value
-	_heap[j].priority = n1.priority
-	_heap[i].value = n1.value
+	var temp = _heap[i]
+	_heap[i] = _heap[j]
+	_heap[j] = temp
 
 func _parent(i: int) -> int:
-	@warning_ignore("INTEGER_DIVISION")
-	return floor((i - 1) / 2)
+	return floor(float(i - 1) / float(2))
 
 func _left(i: int) -> int:
 	return (2 * i) + 1

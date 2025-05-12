@@ -100,10 +100,6 @@ func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i
 		for neighbor in surrounding:
 			current_cells.append(neighbor)
 
-		var walls := _get_surrounding_walls(cave.walls, cell)
-		for wall in walls:
-			room.walls.append(wall, wall.y)
-
 	return room
 
 func _get_surrounding_cells(walls: Dictionary[Vector2i, bool], pos: Vector2i) -> Array:
@@ -113,19 +109,6 @@ func _get_surrounding_cells(walls: Dictionary[Vector2i, bool], pos: Vector2i) ->
 		var neighbor := pos + direction
 		
 		if not (neighbor in walls) or walls[neighbor]:
-			continue
-
-		cells.append(neighbor)
-
-	return cells
-
-func _get_surrounding_walls(walls: Dictionary[Vector2i, bool], pos: Vector2i) -> Array:
-	var cells := []
-	
-	for direction: Vector2i in DIRECTIONS:
-		var neighbor := pos + direction
-
-		if not (neighbor in walls) or not walls[neighbor]:
 			continue
 
 		cells.append(neighbor)
