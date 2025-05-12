@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bw04hg3dbjm46"]
+[gd_scene load_steps=16 format=3 uid="uid://bw04hg3dbjm46"]
 
 [ext_resource type="Script" uid="uid://bapwa4yp3pqcq" path="res://scripts/cave_generation/cave_tilemap.gd" id="1_bl13t"]
 [ext_resource type="Texture2D" uid="uid://clgwpg842p0qf" path="res://icon.svg" id="1_iyx0m"]
@@ -210,8 +210,7 @@ texture = ExtResource("1_iyx0m")
 [sub_resource type="TileSet" id="TileSet_j5jx5"]
 occlusion_layer_0/light_mask = 0
 occlusion_layer_0/sdf_collision = true
-physics_layer_0/collision_layer = 0
-physics_layer_0/collision_mask = 0
+physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_74lek")
 sources/0 = SubResource("TileSetAtlasSource_74lek")
 
@@ -234,9 +233,6 @@ fill_from = Vector2(0.972016, 0.889798)
 
 [sub_resource type="Environment" id="Environment_74lek"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_74lek"]
-size = Vector2(243, 308)
-
 [node name="Test" type="Node2D"]
 
 [node name="CaveTileMap" type="TileMapLayer" parent="."]
@@ -245,6 +241,7 @@ script = ExtResource("1_bl13t")
 metadata/_custom_type_script = "uid://bapwa4yp3pqcq"
 
 [node name="CaveGenerator" type="Node2D" parent="CaveTileMap"]
+rotation = 0.0358834
 script = ExtResource("2_iyx0m")
 wall_probability = 47
 metadata/_custom_type_script = "uid://b0f1gdlj1f55x"
@@ -252,8 +249,7 @@ metadata/_custom_type_script = "uid://b0f1gdlj1f55x"
 [node name="Drone" parent="." instance=ExtResource("4_74lek")]
 position = Vector2(151, 75)
 gravity_scale = 0.5
-
-[node name="Camera2D" type="Camera2D" parent="Drone"]
+sparks_velocity_threshold = 100.0
 
 [node name="Light" type="PointLight2D" parent="Drone"]
 shadow_enabled = true
@@ -265,16 +261,11 @@ position = Vector2(102, 0)
 scale = Vector2(4.1875, 1)
 texture = SubResource("GradientTexture2D_lpvoh")
 
+[node name="Camera2D" type="Camera2D" parent="Drone"]
+zoom = Vector2(2, 2)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_74lek")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(431, 102)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-51.5, 4)
-shape = SubResource("RectangleShape2D_74lek")

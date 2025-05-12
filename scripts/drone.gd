@@ -11,11 +11,13 @@ extends RigidBody2D
 @export var horizontal_max_speed: float = 250.0
 @export var horizontal_stabilization_accel: float = 100.0
 @export var horizontal_pivot_point: Vector2 = Vector2(0, -0.1)
+@export var horizontal_torque_stabilization: float = 50.0
 
+@export var rotation_stabilization_threshold: float = 170
 @export var disable_velocity_threshold: float = 20
 
 @export_category("Visual variables")
-@export var sparks_velocity_threshold: float = 20
+@export var sparks_velocity_threshold: float = 100
 
 @onready var disable_timer: Timer = $DisableTimer
 @onready var spark_particles: GPUParticles2D = $SparkParticles
@@ -28,22 +30,25 @@ var prev_velocity: Vector2
 func _ready() -> void:
 	animation_player.play("fly")
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	for collision in state.get_contact_count():
-		_handle_collision(state, state.get_contact_collider_position(collision))
-
-	prev_velocity = state.linear_velocity
-
+func _process(_delta: float) -> void:
 	if not disable_timer.is_stopped():
-		animation_player.pause()
 		smoke_particles.emitting = true
 		return
-	
+
 	if smoke_particles.emitting:
 		smoke_particles.emitting = false
-	
-	_movement(state)
 
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	for collision in state.get_contact_count():
+		_handle_collision(state, collision)
+
+	if state.get_contact_count() == 0:
+		spark_particles.emitting = false
+
+	prev_velocity = state.linear_velocity
+	
+	if disable_timer.is_stopped():
+		_movement(state)
 	
 func _movement(state: PhysicsDirectBodyState2D) -> void:
 	var force := Vector2.ZERO
@@ -72,8 +77,10 @@ func _movement(state: PhysicsDirectBodyState2D) -> void:
 		sprite.flip_h = false
 	elif linear_velocity.x > 0:
 		horizontal_force -= mass * Vector2(horizontal_stabilization_accel, 0)
+		_adjust_torque()
 	elif linear_velocity.x < 0:
 		horizontal_force += mass * Vector2(horizontal_stabilization_accel, 0)
+		_adjust_torque()
 
 	if linear_velocity.length() <= 1:
 		animation_player.pause()
@@ -84,10 +91,27 @@ func _movement(state: PhysicsDirectBodyState2D) -> void:
 	apply_force(horizontal_force, horizontal_pivot_point)
 
 func _handle_collision(
-	state: PhysicsDirectBodyState2D, collision_pos: Vector2
+	state: PhysicsDirectBodyState2D, collision_idx: int
 ) -> void:
 	var delta_velocity := state.linear_velocity - prev_velocity
 
 	if delta_velocity.length() >= disable_velocity_threshold:
 		disable_timer.start()
+
+	if linear_velocity.length() < sparks_velocity_threshold:
+		spark_particles.emitting = false
+		return
+
+	var normal := state.get_contact_local_normal(collision_idx)
+	var factor := linear_velocity.length() / sparks_velocity_threshold
+
+	spark_particles.rotation = normal.angle() + PI
+
+	spark_particles.process_material.initial_velocity_min = linear_velocity.x * factor
+	spark_particles.process_material.initial_velocity_max = linear_velocity.y * factor
 	
+	spark_particles.emitting = true
+
+func _adjust_torque() -> void:
+	var direction := Vector2.RIGHT.dot(global_transform.y)
+	apply_torque(direction * horizontal_torque_stabilization)
