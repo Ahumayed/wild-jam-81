@@ -1,18 +1,25 @@
+class_name Collectable
 extends Node2D
 
 @export var color: Color = Color.DARK_GOLDENROD
+@export var thickness: int = 3
+@export var sides: int = 3
+@export var outer_radius: float = 100.0
+@export var inner_radius: float = 50.0
+@export var rotation_speed: Vector3 = Vector3(1, 1, 0)
 
 @onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var point_light_2d: PointLight2D = $PointLight2D
 
 var shapes: Array[Shape2D3D] = []
 var drawn_shape: Array = []
 
 func _ready():
-	# Add as many shapes as you want here
-	shapes.append(Shape2D3D.new(5, 20, 100, Vector3(1, 1, 0)))
-	shapes.append(Shape2D3D.new(5, 20, 100, Vector3(-2, 0, 1)))
+	var shape = Shape2D3D.new(sides, outer_radius, inner_radius, rotation_speed)
+	shapes.append(shape)
 	
-
+	collision_shape_2d.shape.radius = outer_radius
+	point_light_2d.color = color
 
 func _process(delta: float) -> void:
 	for shape in shapes:
@@ -21,36 +28,34 @@ func _process(delta: float) -> void:
 	var polygons = []
 	for shape in shapes:
 		polygons.append(shape.get_rotated_points())
-	
-	var merged = []
-	
-#	If only one polygon, draw it and return
+
 	if polygons.size() == 1:
 		drawn_shape = polygons[0]
-		queue_redraw()
-		return
-	
-	while not polygons.is_empty():
-		if merged.is_empty():
-			merged = Geometry2D.merge_polygons(polygons[0], polygons[1])
-			polygons.remove_at(0)
-			polygons.remove_at(0)
+	else:
+		var merged = Geometry2D.merge_polygons(polygons[0], polygons[1])
+		for i in range(2, polygons.size()):
+			merged = Geometry2D.merge_polygons(merged, polygons[i])
 			
-		else:
-			merged = Geometry2D.merge_polygons(merged, polygons[0])
-			polygons.remove_at(0)
 
-#	Close the loop
-	merged[0].append(merged[0][0])
-	
-	drawn_shape = merged[0]
+		drawn_shape = merged[0]
+
+
 	queue_redraw()
 
 func _draw():
 	if drawn_shape.is_empty():
 		return
+	
+	drawn_shape.append(drawn_shape[0])
+	draw_polyline_colors(drawn_shape, [color], thickness)
 
-	draw_polyline_colors(drawn_shape, [Color.DARK_GOLDENROD])
+func merge(other: Collectable) -> void:
+	for shape in other.shapes:
+		shapes.append(shape)
+	
+	collision_shape_2d.shape.radius = max(outer_radius, other.outer_radius)
+	other.queue_free()
+
 
 
 ###############################
@@ -87,7 +92,7 @@ class Shape2D3D:
 			var radius = outer_radius if i % 2 == 0 else inner_radius
 			points.append(Vector2(cos(angle) * radius, sin(angle) * radius))
 		return points
-		
+
 	func rotate_2d_points_3d(points_2d: Array, rotation: Vector3) -> Array:
 		var result = []
 		for p in points_2d:

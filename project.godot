@@ -35,6 +35,10 @@ folder_colors={
 "res://scripts/": "green"
 }
 
+[global_group]
+
+collectable=""
+
 [input]
 
 enlarge_circle={
