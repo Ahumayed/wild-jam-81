@@ -61,7 +61,6 @@ physics_material_override = SubResource("PhysicsMaterial_s8ffj")
 gravity_scale = 0.1
 continuous_cd = 1
 contact_monitor = true
-max_contacts_reported = 10
 script = ExtResource("1_xanut")
 sparks_velocity_threshold = 20.0
 
@@ -94,6 +93,7 @@ libraries = {
 polygon = PackedVector2Array(-4, 7, 4, 7, 5, -2, 5, -3, 5, -7, -5, -7, -5, -3, -5, -2)
 
 [node name="DisableTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="Sprite" type="Sprite2D" parent="."]

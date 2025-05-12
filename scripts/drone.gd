@@ -41,7 +41,7 @@ func _process(_delta: float) -> void:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	for collision in state.get_contact_count():
 		_handle_collision(state, collision)
-
+	
 	if state.get_contact_count() == 0:
 		spark_particles.emitting = false
 
@@ -54,7 +54,7 @@ func _movement(state: PhysicsDirectBodyState2D) -> void:
 	var force := Vector2.ZERO
 	var horizontal_force := Vector2.ZERO
 
-	if Input.is_action_pressed("fly_up") and state.linear_velocity.y < fly_up_max_speed:
+	if Input.is_action_pressed("fly_up") and abs(state.linear_velocity.y) < fly_up_max_speed:
 		force -= mass * Vector2(0, vertical_acceleration)
 	elif state.linear_velocity.y < 0:
 		force += mass * Vector2(0, vertical_stabilization_accel)
