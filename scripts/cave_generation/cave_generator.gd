@@ -4,16 +4,13 @@ extends Node2D
 @export var cave_size := Vector2i(100, 100)
 @export var iteration_count := 5
 @export var wall_probability: int = 40
+@export var make_bridges: bool = true
 
 const DIRECTIONS = [
 	Vector2i.RIGHT,
 	Vector2i.LEFT,
 	Vector2i.UP,
 	Vector2i.DOWN,
-	Vector2i(1, 1),
-	Vector2i(-1, 1),
-	Vector2i(1, -1),
-	Vector2i(-1, -1)
 ]
 
 func _ready() -> void:
@@ -26,7 +23,11 @@ func generate_cave(gen_seed: int = -1) -> Cave:
 	var cave := Cave.new(cave_size)
 
 	_random_fill(cave, rng)
-	_apply_cellular_automata(cave)
+
+	for i in range(iteration_count):
+		_apply_cellular_automata(cave)
+
+	_find_rooms(cave)
 
 	return cave
 
@@ -41,29 +42,95 @@ func _random_fill(cave: Cave, rng: RandomNumberGenerator) -> void:
 				cave.walls[Vector2i(x, y)] = false
 
 func _apply_cellular_automata(cave: Cave) -> void:
-	for i in range(iteration_count):
-		for y in range(cave.size.y):
-			for x in range(cave.size.x):
-				var pos := Vector2i(x, y)
-				
-				if pos.x == 0 or pos.y == 0 or pos.x == cave.size.x - 1 or pos.y == cave.size.y - 1:
-					cave.walls[pos] = true
-					continue
+	for y in range(cave.size.y):
+		for x in range(cave.size.x):
+			var pos := Vector2i(x, y)
+			
+			if pos.x == 0 or pos.y == 0 or pos.x == cave.size.x - 1 or pos.y == cave.size.y - 1:
+				cave.walls[pos] = true
+				continue
 
-				var wall_count: int = _get_wall_count(cave.walls, pos)
-				var nearby_wall_count := _get_nearby_wall_count(cave, pos)
+			var wall_count: int = _get_wall_count(cave.walls, pos)
+			var nearby_wall_count := _get_nearby_wall_count(cave, pos)
 
-				if wall_count >= 5 or nearby_wall_count <= 2:
-					cave.walls[pos] = true
-				else:
-					cave.walls[pos] = false
-				
-				wall_count = _get_wall_count(cave.walls, pos)
-				
-				if wall_count >= 5:
-					cave.walls[pos] = true
-				else:
-					cave.walls[pos] = false
+			if wall_count >= 5 or nearby_wall_count <= 2:
+				cave.walls[pos] = true
+			else:
+				cave.walls[pos] = false
+			
+			wall_count = _get_wall_count(cave.walls, pos)
+			
+			if wall_count >= 5:
+				cave.walls[pos] = true
+			else:
+				cave.walls[pos] = false
+
+func _find_rooms(cave: Cave) -> void:
+	var visited: Dictionary[Vector2i, bool] = {}
+
+	for cell: Vector2i in cave.walls:
+		if cave.walls[cell] or cell in visited:
+			continue
+
+		var room := _flood_fill(cave, visited, cell)
+		
+		if room.cells.size() < cave.room.cells.size():
+			for pos in room.cells:
+				cave.walls[pos] = true
+		else:
+			for pos in cave.room.cells:
+				cave.walls[pos] = true
+			cave.room = room
+
+func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i) -> Room:
+	var room := Room.new()
+	room.cells = [from]
+
+	var current_cells := [from]
+	while not current_cells.is_empty():
+		var cell: Vector2i = current_cells.pop_back()
+		
+		if cell in visited:
+			continue
+		
+		visited[cell] = true
+		room.cells.append(cell)
+		var surrounding := _get_surrounding_cells(cave.walls, cell)
+		
+		for neighbor in surrounding:
+			current_cells.append(neighbor)
+
+		var walls := _get_surrounding_walls(cave.walls, cell)
+		for wall in walls:
+			room.walls.append(wall, wall.y)
+
+	return room
+
+func _get_surrounding_cells(walls: Dictionary[Vector2i, bool], pos: Vector2i) -> Array:
+	var cells := []
+
+	for direction: Vector2i in DIRECTIONS:
+		var neighbor := pos + direction
+		
+		if not (neighbor in walls) or walls[neighbor]:
+			continue
+
+		cells.append(neighbor)
+
+	return cells
+
+func _get_surrounding_walls(walls: Dictionary[Vector2i, bool], pos: Vector2i) -> Array:
+	var cells := []
+	
+	for direction: Vector2i in DIRECTIONS:
+		var neighbor := pos + direction
+
+		if not (neighbor in walls) or not walls[neighbor]:
+			continue
+
+		cells.append(neighbor)
+
+	return cells
 
 func _get_wall_count(walls: Dictionary[Vector2i, bool], pos: Vector2i) -> int:
 	var count: int = 0
@@ -95,7 +162,9 @@ func _get_nearby_wall_count(cave: Cave, pos: Vector2i) -> int:
 class Cave:
 	var walls: Dictionary[Vector2i, bool]
 	var size: Vector2i
+	var room: Room
 
 	func _init(_size: Vector2i) -> void:
 		size = _size
 		walls = {}
+		room = Room.new()

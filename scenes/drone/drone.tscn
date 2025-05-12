@@ -58,10 +58,12 @@ _data = {
 
 [node name="Drone" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_s8ffj")
+gravity_scale = 0.1
 continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_xanut")
+sparks_velocity_threshold = 20.0
 
 [node name="SmokeParticles" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_aqo7c")
@@ -79,6 +81,9 @@ anim_offset_min = 0.5
 anim_offset_max = 0.75
 
 [node name="SparkParticles" parent="." instance=ExtResource("2_ws74u")]
+visible = false
+amount = 3
+one_shot = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -89,7 +94,6 @@ libraries = {
 polygon = PackedVector2Array(-4, 7, 4, 7, 5, -2, 5, -3, 5, -7, -5, -7, -5, -3, -5, -2)
 
 [node name="DisableTimer" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
