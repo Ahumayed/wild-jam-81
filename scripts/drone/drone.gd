@@ -19,6 +19,9 @@ extends RigidBody2D
 
 @export var battery_drain: float = .1
 @export var battery_drain_item: float = .2
+@export_category("Audio variables")
+@export var minimum_pitch: float = 1
+@export var maximum_pitch: float = 1.3
 
 @onready var disable_timer: Timer = $DisableTimer
 @onready var spark_particles: GPUParticles2D = $SparkParticles
@@ -28,6 +31,7 @@ extends RigidBody2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var item_manager: ItemManager = $ItemManager
 @onready var discharge_particles: CPUParticles2D = $DischargeParticles
+@onready var engine_audio_stream_player: AudioStreamPlayer2D = $EngineAudioStreamPlayer
 
 var prev_velocity: Vector2
 var dead := false
@@ -62,6 +66,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
 	if disable_timer.is_stopped() and not dead:
 		_movement(state)
+	
+	_handle_audio(state)
 	
 func _movement(state: PhysicsDirectBodyState2D) -> void:
 	var force := Vector2.ZERO
@@ -132,3 +138,7 @@ func _adjust_torque() -> void:
 func _on_health_component_died() -> void:
 	spark_particles.emitting = true
 	dead = true
+func _handle_audio(state: PhysicsDirectBodyState2D) -> void:
+	var pitch = lerpf(minimum_pitch, maximum_pitch, (abs(state.linear_velocity.y)/fly_up_max_speed))
+	engine_audio_stream_player.pitch_scale = pitch
+	

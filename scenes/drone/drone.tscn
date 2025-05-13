@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b33vxll0ng1cb" path="res://assets/textures/light.png" id="8_uli58"]
 [ext_resource type="Script" path="res://scripts/util/hitbox_component.gd" id="9_q43q2"]
 [ext_resource type="Texture2D" uid="uid://d3tk2mt0x05tx" path="res://assets/textures/spark_particles.png" id="9_qtwm1"]
+[ext_resource type="AudioStream" uid="uid://cuw32f7ul647q" path="res://assets/sfx/drone_engine.ogg" id="5_315ty"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s8ffj"]
 friction = 0.4
@@ -186,3 +187,7 @@ anim_speed_max = 3.0
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="ProgressBar" method="_on_health_component_health_changed"]
+[node name="EngineAudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_315ty")
+autoplay = true
+bus = &"SFX"
