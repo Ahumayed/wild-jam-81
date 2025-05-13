@@ -35,15 +35,20 @@ func _random_fill(cave: Cave, rng: RandomNumberGenerator) -> void:
 	for y: int in range(cave.size.y):
 		for x: int in range(cave.size.x):
 			var n := rng.randi_range(0, 99)
+			var pos := Vector2i(x, y)
+
+			if pos.x == 0 or pos.y == 0 or pos.x == cave.size.x - 1 or pos.y == cave.size.y - 1:
+				cave.walls[pos] = true
+				continue
 			
 			if n < wall_probability:
-				cave.walls[Vector2i(x, y)] = true
+				cave.walls[pos] = true
 			else:
-				cave.walls[Vector2i(x, y)] = false
+				cave.walls[pos] = false
 
 func _apply_cellular_automata(cave: Cave) -> void:
-	for y in range(cave.size.y):
-		for x in range(cave.size.x):
+	for y in range(1, cave.size.y - 1):
+		for x in range(1, cave.size.x - 1):
 			var pos := Vector2i(x, y)
 			
 			if pos.x == 0 or pos.y == 0 or pos.x == cave.size.x - 1 or pos.y == cave.size.y - 1:

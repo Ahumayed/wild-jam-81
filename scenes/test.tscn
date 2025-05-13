@@ -1,26 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bw04hg3dbjm46"]
+[gd_scene load_steps=6 format=3 uid="uid://bw04hg3dbjm46"]
 
+[ext_resource type="PackedScene" uid="uid://7gxu2wuf124l" path="res://scenes/item/placeholder_item.tscn" id="3_iyx0m"]
 [ext_resource type="PackedScene" uid="uid://camqqqwadhrk" path="res://scenes/drone/drone.tscn" id="4_74lek"]
+[ext_resource type="PackedScene" uid="uid://dtp7hc1rsj1wx" path="res://scenes/game_world_environment.tscn" id="4_j5jx5"]
 [ext_resource type="PackedScene" uid="uid://c27joho5gf3pm" path="res://scenes/collectable/collectable.tscn" id="5_j5jx5"]
-
-[sub_resource type="Gradient" id="Gradient_74lek"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_j5jx5"]
-gradient = SubResource("Gradient_74lek")
-fill = 1
-fill_from = Vector2(0.504754, 0.500393)
-fill_to = Vector2(0.82517, 0.266844)
-
-[sub_resource type="Gradient" id="Gradient_j5jx5"]
-offsets = PackedFloat32Array(0, 0.124824, 0.636131, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lpvoh"]
-gradient = SubResource("Gradient_j5jx5")
-fill_from = Vector2(0.972016, 0.889798)
-
-[sub_resource type="Environment" id="Environment_74lek"]
+[ext_resource type="PackedScene" uid="uid://tixhp8xqbeqw" path="res://scenes/cave_tile_map.tscn" id="5_lpvoh"]
 
 [node name="Test" type="Node2D"]
 
@@ -31,27 +15,27 @@ can_sleep = false
 max_contacts_reported = 10
 sparks_velocity_threshold = 100.0
 
-[node name="Light" type="PointLight2D" parent="Drone"]
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_j5jx5")
-texture_scale = 5.0
-
-[node name="FlashLight" type="PointLight2D" parent="Drone"]
-position = Vector2(102, 0)
-scale = Vector2(4.1875, 1)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_lpvoh")
-
 [node name="Camera2D" type="Camera2D" parent="Drone"]
 zoom = Vector2(2, 2)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_74lek")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
-
 [node name="Collectable" parent="." instance=ExtResource("5_j5jx5")]
-position = Vector2(155, 97)
+position = Vector2(645, 504)
 outer_radius = 10.0
 inner_radius = 5.0
+
+[node name="PlaceholderItem" parent="." instance=ExtResource("3_iyx0m")]
+position = Vector2(237, 228)
+
+[node name="PlaceholderItem2" parent="." instance=ExtResource("3_iyx0m")]
+position = Vector2(260, 92)
+mass = 2.0
+
+[node name="PlaceholderItem3" parent="." instance=ExtResource("3_iyx0m")]
+position = Vector2(56, 158)
+mass = 10.0
+
+[node name="CaveTileMap" parent="." instance=ExtResource("5_lpvoh")]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("4_j5jx5")]
+
+[editable path="CaveTileMap"]

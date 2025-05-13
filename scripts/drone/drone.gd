@@ -1,7 +1,6 @@
 class_name Drone
 extends RigidBody2D
 
-@export_category("Movement Variables")
 @export var fly_up_max_speed: float = 500.0
 @export var vertical_acceleration: float = 250.0
 @export var vertical_drop_percentage_gravity := 0.5
@@ -16,22 +15,32 @@ extends RigidBody2D
 @export var rotation_stabilization_threshold: float = 170
 @export var disable_velocity_threshold: float = 20
 
-@export_category("Visual variables")
 @export var sparks_velocity_threshold: float = 100
+
+@export var battery_drain: float = .1
+@export var battery_drain_item: float = .2
 
 @onready var disable_timer: Timer = $DisableTimer
 @onready var spark_particles: GPUParticles2D = $SparkParticles
 @onready var smoke_particles: CPUParticles2D = $SmokeParticles
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var item_manager: ItemManager = $ItemManager
 
 var prev_velocity: Vector2
+var dead := false
 
 func _ready() -> void:
 	animation_player.play("fly")
 
-func _process(_delta: float) -> void:
-	if not disable_timer.is_stopped():
+func _process(delta: float) -> void:
+	health_component.health -= battery_drain * delta
+	
+	if item_manager.current_item != null:
+		health_component.health -= (battery_drain_item * item_manager.current_item.mass) * delta
+
+	if not disable_timer.is_stopped() or dead:
 		smoke_particles.emitting = true
 		return
 
@@ -47,7 +56,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	prev_velocity = state.linear_velocity
 	
-	if disable_timer.is_stopped():
+	if disable_timer.is_stopped() and not dead:
 		_movement(state)
 	
 func _movement(state: PhysicsDirectBodyState2D) -> void:
@@ -115,3 +124,7 @@ func _handle_collision(
 func _adjust_torque() -> void:
 	var direction := Vector2.RIGHT.dot(global_transform.y)
 	apply_torque(direction * horizontal_torque_stabilization)
+
+func _on_health_component_died() -> void:
+	spark_particles.emitting = true
+	dead = true
