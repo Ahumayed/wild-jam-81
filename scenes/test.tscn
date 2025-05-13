@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bw04hg3dbjm46"]
+[gd_scene load_steps=9 format=3 uid="uid://bw04hg3dbjm46"]
 
 [ext_resource type="PackedScene" uid="uid://7gxu2wuf124l" path="res://scenes/item/placeholder_item.tscn" id="3_iyx0m"]
 [ext_resource type="PackedScene" uid="uid://camqqqwadhrk" path="res://scenes/drone/drone.tscn" id="4_74lek"]
@@ -20,6 +20,9 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_lpvoh"]
 gradient = SubResource("Gradient_j5jx5")
 fill_from = Vector2(0.972016, 0.889798)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iyx0m"]
+size = Vector2(407, 8)
 
 [node name="Test" type="Node2D"]
 
@@ -51,12 +54,17 @@ inner_radius = 5.0
 
 [node name="PlaceholderItem" parent="." instance=ExtResource("3_iyx0m")]
 position = Vector2(237, 228)
-gravity_scale = 0.0
+mass = 0.1
 
 [node name="PlaceholderItem2" parent="." instance=ExtResource("3_iyx0m")]
 position = Vector2(260, 92)
-gravity_scale = 0.0
+mass = 0.5
 
 [node name="PlaceholderItem3" parent="." instance=ExtResource("3_iyx0m")]
 position = Vector2(56, 158)
-gravity_scale = 0.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(193.5, 244)
+shape = SubResource("RectangleShape2D_iyx0m")

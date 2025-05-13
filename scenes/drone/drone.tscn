@@ -58,7 +58,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_315ty"]
-radius = 75.06
+radius = 100.0
 
 [node name="Drone" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_s8ffj")
@@ -106,6 +106,8 @@ vframes = 4
 
 [node name="ItemManager" type="Area2D" parent="."]
 script = ExtResource("5_315ty")
+min_radius = 35.0
+torque = 100.0
 metadata/_custom_type_script = "uid://q4q3rd6nnv1k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemManager"]

@@ -13,9 +13,7 @@ metadata/_custom_type_script = "uid://cuhrtn5mf2xk1"
 shape = SubResource("RectangleShape2D_e8xai")
 
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(1.90735e-06, -1.90735e-06)
+position = Vector2(0, -10)
 scale = Vector2(0.15625, 0.15625)
 texture = ExtResource("2_gi6sy")
-
-[node name="Pivot" type="Node2D" parent="."]
-position = Vector2(0, -10)
+offset = Vector2(1.2207e-05, 64)
