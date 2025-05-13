@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://tixhp8xqbeqw"]
+[gd_scene load_steps=20 format=3 uid="uid://tixhp8xqbeqw"]
 
 [ext_resource type="Texture2D" uid="uid://n0660cqv4bq6" path="res://assets/textures/temp_tileset.png" id="1_xtf2v"]
 [ext_resource type="Script" uid="uid://bapwa4yp3pqcq" path="res://scripts/cave_generation/cave_tilemap.gd" id="2_0we40"]
@@ -24,9 +24,6 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_uacia"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5jxlq"]
-polygon = PackedVector2Array(0, 0, 0, -8, 8, -8, 8, 8, -8, 8, -8, 0)
-
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yk7ts"]
 polygon = PackedVector2Array(-8, 0, 0, 0, 0, 8, -8, 8)
 
@@ -35,9 +32,6 @@ polygon = PackedVector2Array(-8, -8, 0, -8, 0, 8, -8, 8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ghpyy"]
 polygon = PackedVector2Array(-8, -8, 0, -8, 0, 0, -8, 0)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xrtyr"]
-polygon = PackedVector2Array(0, 0, 0, -8, 8, -8, 8, 8, -8, 8, -8, 0)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_44saj"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 0, 0, 0, 0, 8, -8, 8)
@@ -199,9 +193,7 @@ texture = ExtResource("1_xtf2v")
 7:2/0 = 0
 0:3/0 = 0
 1:3/0 = 0
-1:3/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_5jxlq")
 2:3/0 = 0
-2:3/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_xrtyr")
 3:3/0 = 0
 4:3/0 = 0
 5:3/0 = 0
@@ -251,8 +243,10 @@ terrain_set_0/terrain_0/color = Color(2.06962e-06, 0.424778, 0.546929, 1)
 sources/1 = SubResource("TileSetAtlasSource_j5jx5")
 
 [node name="CaveTileMap" type="TileMapLayer"]
+z_index = -1
 tile_set = SubResource("TileSet_j5jx5")
 script = ExtResource("2_0we40")
+source_id = 1
 metadata/_custom_type_script = "uid://bapwa4yp3pqcq"
 
 [node name="CaveGenerator" type="Node2D" parent="."]

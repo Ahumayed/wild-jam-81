@@ -1,7 +1,7 @@
 class_name CaveTileMap
 extends TileMapLayer
 
-@export var cave_tile_atlas_coords: Vector2i
+@export var cave_background_tile := Vector2i(0, 3)
 @export var source_id: int = 0
 @export var gem_count: int = 4
 
@@ -24,6 +24,9 @@ func _ready() -> void:
 				walls.append(pos)
 	
 	set_cells_terrain_connect(walls, 0, 0)
+	
+	for cell in cave.room.cells:
+		set_cell(cell, source_id, cave_background_tile)
 	
 	# for i in range(gem_count):
 	# 	var j: int = (cave.room.walls.size() - 1) / (i + 1)

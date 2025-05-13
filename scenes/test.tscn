@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bw04hg3dbjm46"]
 
-[ext_resource type="PackedScene" uid="uid://7gxu2wuf124l" path="res://scenes/item/placeholder_item.tscn" id="3_iyx0m"]
 [ext_resource type="PackedScene" uid="uid://camqqqwadhrk" path="res://scenes/drone/drone.tscn" id="4_74lek"]
-[ext_resource type="PackedScene" uid="uid://dtp7hc1rsj1wx" path="res://scenes/game_world_environment.tscn" id="4_j5jx5"]
+[ext_resource type="PackedScene" uid="uid://d35nbh261tagy" path="res://scenes/item/flare_item.tscn" id="4_j5jx5"]
+[ext_resource type="PackedScene" uid="uid://dtp7hc1rsj1wx" path="res://scenes/game_world_environment.tscn" id="5_at5dv"]
 [ext_resource type="PackedScene" uid="uid://c27joho5gf3pm" path="res://scenes/collectable/collectable.tscn" id="5_j5jx5"]
 [ext_resource type="PackedScene" uid="uid://tixhp8xqbeqw" path="res://scenes/cave_tile_map.tscn" id="5_lpvoh"]
 
@@ -23,19 +23,9 @@ position = Vector2(645, 504)
 outer_radius = 10.0
 inner_radius = 5.0
 
-[node name="PlaceholderItem" parent="." instance=ExtResource("3_iyx0m")]
-position = Vector2(237, 228)
-
-[node name="PlaceholderItem2" parent="." instance=ExtResource("3_iyx0m")]
-position = Vector2(260, 92)
-mass = 2.0
-
-[node name="PlaceholderItem3" parent="." instance=ExtResource("3_iyx0m")]
-position = Vector2(56, 158)
-mass = 10.0
+[node name="FlareItem" parent="." instance=ExtResource("4_j5jx5")]
+position = Vector2(110, 95)
 
 [node name="CaveTileMap" parent="." instance=ExtResource("5_lpvoh")]
 
-[node name="WorldEnvironment" parent="." instance=ExtResource("4_j5jx5")]
-
-[editable path="CaveTileMap"]
+[node name="WorldEnvironment" parent="." instance=ExtResource("5_at5dv")]
