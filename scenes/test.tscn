@@ -54,14 +54,14 @@ inner_radius = 5.0
 
 [node name="PlaceholderItem" parent="." instance=ExtResource("3_iyx0m")]
 position = Vector2(237, 228)
-mass = 0.1
 
 [node name="PlaceholderItem2" parent="." instance=ExtResource("3_iyx0m")]
 position = Vector2(260, 92)
-mass = 0.5
+mass = 2.0
 
 [node name="PlaceholderItem3" parent="." instance=ExtResource("3_iyx0m")]
 position = Vector2(56, 158)
+mass = 10.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
