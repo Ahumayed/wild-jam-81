@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtp7hc1rsj1wx"]
+
+[sub_resource type="Environment" id="Environment_74lek"]
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_74lek")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
