@@ -126,4 +126,5 @@ func _adjust_torque() -> void:
 	apply_torque(direction * horizontal_torque_stabilization)
 
 func _on_health_component_died() -> void:
+	spark_particles.emitting = true
 	dead = true

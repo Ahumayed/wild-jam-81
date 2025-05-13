@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://camqqqwadhrk"]
+[gd_scene load_steps=22 format=3 uid="uid://camqqqwadhrk"]
 
 [ext_resource type="Texture2D" uid="uid://bsl48uec63af7" path="res://assets/textures/particles/circles.png" id="1_pae44"]
 [ext_resource type="Script" uid="uid://bg84rxaiikf2w" path="res://scripts/drone/drone.gd" id="1_xanut"]
@@ -82,16 +82,33 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_315ty"]
 radius = 100.0
 
+[sub_resource type="Gradient" id="Gradient_74lek"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nfagk"]
+gradient = SubResource("Gradient_74lek")
+fill = 1
+fill_from = Vector2(0.504754, 0.500393)
+fill_to = Vector2(0.82517, 0.266844)
+
+[sub_resource type="Gradient" id="Gradient_j5jx5"]
+offsets = PackedFloat32Array(0, 0.124824, 0.636131, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uli58"]
+gradient = SubResource("Gradient_j5jx5")
+fill_from = Vector2(0.972016, 0.889798)
+
 [node name="Drone" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_s8ffj")
 gravity_scale = 0.1
 continuous_cd = 1
 contact_monitor = true
 script = ExtResource("1_xanut")
+disable_velocity_threshold = 100.0
 sparks_velocity_threshold = 20.0
 
 [node name="SmokeParticles" type="CPUParticles2D" parent="."]
-visible = false
 material = SubResource("CanvasItemMaterial_aqo7c")
 emitting = false
 texture = ExtResource("1_pae44")
@@ -118,7 +135,6 @@ libraries = {
 }
 
 [node name="Collider" type="CollisionPolygon2D" parent="."]
-visible = false
 polygon = PackedVector2Array(-4, 7, 4, 7, 5, -2, 5, -3, 5, -7, -5, -7, -5, -3, -5, -2)
 
 [node name="DisableTimer" type="Timer" parent="."]
@@ -126,19 +142,16 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("3_361hk")
 vframes = 4
 
 [node name="ItemManager" type="Area2D" parent="."]
-visible = false
 script = ExtResource("5_315ty")
 min_radius = 35.0
 torque = 100.0
 metadata/_custom_type_script = "uid://q4q3rd6nnv1k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemManager"]
-visible = false
 shape = SubResource("CircleShape2D_315ty")
 
 [node name="HealthComponent" type="Node" parent="."]
@@ -146,11 +159,22 @@ script = ExtResource("6_5e86u")
 metadata/_custom_type_script = "uid://cgdrkinve8cx0"
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-visible = false
 offset_right = 4.0
 offset_bottom = 27.0
 pivot_offset = Vector2(60, 73)
 script = ExtResource("7_nfagk")
+
+[node name="Light" type="PointLight2D" parent="."]
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_nfagk")
+texture_scale = 5.0
+
+[node name="FlashLight" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(102, 0)
+scale = Vector2(4.1875, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_uli58")
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="ProgressBar" method="_on_health_component_health_changed"]
