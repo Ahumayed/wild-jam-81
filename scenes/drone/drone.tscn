@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://camqqqwadhrk"]
+[gd_scene load_steps=24 format=3 uid="uid://camqqqwadhrk"]
 
 [ext_resource type="Texture2D" uid="uid://bsl48uec63af7" path="res://assets/textures/particles/circles.png" id="1_pae44"]
 [ext_resource type="Script" uid="uid://bg84rxaiikf2w" path="res://scripts/drone/drone.gd" id="1_xanut"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://q4q3rd6nnv1k" path="res://scripts/item/item_manager.gd" id="5_315ty"]
 [ext_resource type="Script" uid="uid://cgdrkinve8cx0" path="res://scripts/util/health_component.gd" id="6_5e86u"]
 [ext_resource type="Script" uid="uid://dm6vu7y5y02l2" path="res://scripts/drone/progress_bar.gd" id="7_nfagk"]
+[ext_resource type="Script" uid="uid://doxkcmea2vy8m" path="res://scripts/util/hitbox_component.gd" id="8_uli58"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s8ffj"]
 friction = 0.4
@@ -99,6 +100,9 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 gradient = SubResource("Gradient_j5jx5")
 fill_from = Vector2(0.972016, 0.889798)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uli58"]
+radius = 17.0
+
 [node name="Drone" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_s8ffj")
 gravity_scale = 0.1
@@ -175,6 +179,13 @@ position = Vector2(102, 0)
 scale = Vector2(4.1875, 1)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_uli58")
+
+[node name="DischargeHitbox" type="Area2D" parent="."]
+script = ExtResource("8_uli58")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DischargeHitbox"]
+shape = SubResource("CircleShape2D_uli58")
+debug_color = Color(0.832319, 0, 0.167132, 0.42)
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="ProgressBar" method="_on_health_component_health_changed"]
