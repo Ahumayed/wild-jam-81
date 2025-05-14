@@ -10,13 +10,7 @@ extends TileMapLayer
 var cave = null
 
 func _ready() -> void:
-	pass
-	# _generate_cave()
-
-# Temporary for profiling
-func _process(_delta: float) -> void:
-	if Input.is_action_pressed("fly_up"):
-		_generate_cave()
+	_generate_cave()
 
 func _generate_cave() -> void:
 	cave = cave_generator.generate_cave()
