@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://camqqqwadhrk"]
+[gd_scene load_steps=26 format=3 uid="uid://camqqqwadhrk"]
 
 [ext_resource type="Texture2D" uid="uid://bsl48uec63af7" path="res://assets/textures/particles/circles.png" id="1_pae44"]
 [ext_resource type="Script" uid="uid://bg84rxaiikf2w" path="res://scripts/drone/drone.gd" id="1_xanut"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cgdrkinve8cx0" path="res://scripts/util/health_component.gd" id="6_5e86u"]
 [ext_resource type="Script" uid="uid://dm6vu7y5y02l2" path="res://scripts/drone/progress_bar.gd" id="7_nfagk"]
 [ext_resource type="Script" uid="uid://doxkcmea2vy8m" path="res://scripts/util/hitbox_component.gd" id="8_uli58"]
+[ext_resource type="Texture2D" uid="uid://d3tk2mt0x05tx" path="res://assets/textures/spark_particles.png" id="9_qtwm1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s8ffj"]
 friction = 0.4
@@ -103,6 +104,12 @@ fill_from = Vector2(0.972016, 0.889798)
 [sub_resource type="CircleShape2D" id="CircleShape2D_uli58"]
 radius = 17.0
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q43q2"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
 [node name="Drone" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_s8ffj")
 gravity_scale = 0.1
@@ -186,6 +193,26 @@ script = ExtResource("8_uli58")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DischargeHitbox"]
 shape = SubResource("CircleShape2D_uli58")
 debug_color = Color(0.832319, 0, 0.167132, 0.42)
+
+[node name="DischargeParticles" type="CPUParticles2D" parent="."]
+modulate = Color(5, 5, 5, 1)
+material = SubResource("CanvasItemMaterial_q43q2")
+emitting = false
+amount = 10
+texture = ExtResource("9_qtwm1")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 18.89
+gravity = Vector2(0, 0)
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.5
+scale_amount_max = 0.6
+color = Color(0, 2, 2, 1)
+anim_speed_min = 3.0
+anim_speed_max = 3.0
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="ProgressBar" method="_on_health_component_health_changed"]

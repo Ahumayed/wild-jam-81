@@ -27,6 +27,7 @@ extends RigidBody2D
 @onready var sprite: Sprite2D = $Sprite
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var item_manager: ItemManager = $ItemManager
+@onready var discharge_particles: CPUParticles2D = $DischargeParticles
 
 var prev_velocity: Vector2
 var dead := false
@@ -35,6 +36,9 @@ func _ready() -> void:
 	animation_player.play("fly")
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("discharge"):
+		discharge_particles.emitting = true
+
 	health_component.health -= battery_drain * delta
 	
 	if item_manager.current_item != null:

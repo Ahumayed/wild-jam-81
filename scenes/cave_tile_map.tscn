@@ -252,6 +252,5 @@ metadata/_custom_type_script = "uid://bapwa4yp3pqcq"
 [node name="CaveGenerator" type="Node2D" parent="."]
 rotation = 0.0358834
 script = ExtResource("3_tk525")
-cave_size = Vector2i(100, 500)
 wall_probability = 47
 metadata/_custom_type_script = "uid://b0f1gdlj1f55x"
