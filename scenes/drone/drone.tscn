@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://camqqqwadhrk"]
+[gd_scene load_steps=25 format=3 uid="uid://camqqqwadhrk"]
 
 [ext_resource type="Texture2D" uid="uid://bsl48uec63af7" path="res://assets/textures/particles/circles.png" id="1_pae44"]
 [ext_resource type="Script" uid="uid://bg84rxaiikf2w" path="res://scripts/drone/drone.gd" id="1_xanut"]
@@ -7,7 +7,8 @@
 [ext_resource type="Script" uid="uid://q4q3rd6nnv1k" path="res://scripts/item/item_manager.gd" id="5_315ty"]
 [ext_resource type="Script" uid="uid://cgdrkinve8cx0" path="res://scripts/util/health_component.gd" id="6_5e86u"]
 [ext_resource type="Script" uid="uid://dm6vu7y5y02l2" path="res://scripts/drone/progress_bar.gd" id="7_nfagk"]
-[ext_resource type="Script" uid="uid://doxkcmea2vy8m" path="res://scripts/util/hitbox_component.gd" id="8_uli58"]
+[ext_resource type="Texture2D" uid="uid://b33vxll0ng1cb" path="res://assets/textures/light.png" id="8_uli58"]
+[ext_resource type="Script" path="res://scripts/util/hitbox_component.gd" id="9_q43q2"]
 [ext_resource type="Texture2D" uid="uid://d3tk2mt0x05tx" path="res://assets/textures/spark_particles.png" id="9_qtwm1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s8ffj"]
@@ -83,15 +84,6 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_315ty"]
 radius = 100.0
-
-[sub_resource type="Gradient" id="Gradient_74lek"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_nfagk"]
-gradient = SubResource("Gradient_74lek")
-fill = 1
-fill_from = Vector2(0.504754, 0.500393)
-fill_to = Vector2(0.82517, 0.266844)
 
 [sub_resource type="Gradient" id="Gradient_j5jx5"]
 offsets = PackedFloat32Array(0, 0.124824, 0.636131, 1)
@@ -177,8 +169,8 @@ script = ExtResource("7_nfagk")
 
 [node name="Light" type="PointLight2D" parent="."]
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_nfagk")
-texture_scale = 5.0
+texture = ExtResource("8_uli58")
+texture_scale = 0.2
 
 [node name="FlashLight" type="PointLight2D" parent="."]
 visible = false
@@ -188,7 +180,7 @@ shadow_enabled = true
 texture = SubResource("GradientTexture2D_uli58")
 
 [node name="DischargeHitbox" type="Area2D" parent="."]
-script = ExtResource("8_uli58")
+script = ExtResource("9_q43q2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DischargeHitbox"]
 shape = SubResource("CircleShape2D_uli58")

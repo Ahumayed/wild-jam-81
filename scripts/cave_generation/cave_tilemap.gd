@@ -10,6 +10,15 @@ extends TileMapLayer
 var cave = null
 
 func _ready() -> void:
+	pass
+	# _generate_cave()
+
+# Temporary for profiling
+func _process(_delta: float) -> void:
+	if Input.is_action_pressed("fly_up"):
+		_generate_cave()
+
+func _generate_cave() -> void:
 	cave = cave_generator.generate_cave()
 
 	var walls: Array[Vector2i] = []
@@ -27,8 +36,3 @@ func _ready() -> void:
 	
 	for cell in cave.room.cells:
 		set_cell(cell, source_id, cave_background_tile)
-	
-	# for i in range(gem_count):
-	# 	var j: int = (cave.room.walls.size() - 1) / (i + 1)
-	# 	var wall: Vector2i = cave.room.walls.find(j)
-	# 	set_cell(wall, source_id, Vector2i(3, 2) + Vector2i(i, 0))

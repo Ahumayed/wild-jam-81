@@ -33,16 +33,13 @@ func _generate_cave(gen_seed: int) -> Cave:
 		thread_count = cave.size.y
 
 	var threads: Array[Thread] = []
-	var row_count: int = ceil(float(cave.size.y) / thread_count)
+	var row_count: int = ceil(float(cave.size.y - 1) / thread_count)
 
-	for i in range(thread_count):
+	for i in range(ceil(float(cave.size.y) / row_count)):
 		var thread := Thread.new()
 		
 		var from := Vector2i(1, i * row_count)
 		var to := Vector2i(cave.size.x, (i * row_count) + row_count)
-
-		if to.y >= cave.size.y:
-			to.y = cave.size.y - 2
 
 		thread.start(_apply_cellular_automata.bind(cave, from, to))
 		threads.append(thread)
@@ -71,7 +68,7 @@ func _random_fill(cave: Cave, rng: RandomNumberGenerator) -> void:
 
 func _apply_cellular_automata(cave: Cave, from: Vector2i, to: Vector2i) -> void:
 	for i in range(iteration_count):
-		for y in range(from.y, to.y):
+		for y in range(from.y, to.y - 1):
 			for x in range(from.x, to.x - 1):
 				var pos := Vector2i(x, y)
 
