@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cgdrkinve8cx0" path="res://scripts/util/health_component.gd" id="6_5e86u"]
 [ext_resource type="Script" uid="uid://dm6vu7y5y02l2" path="res://scripts/drone/progress_bar.gd" id="7_nfagk"]
 [ext_resource type="Texture2D" uid="uid://b33vxll0ng1cb" path="res://assets/textures/light.png" id="8_uli58"]
-[ext_resource type="Script" path="res://scripts/util/hitbox_component.gd" id="9_q43q2"]
+[ext_resource type="Script" uid="uid://doxkcmea2vy8m" path="res://scripts/util/hitbox_component.gd" id="9_q43q2"]
 [ext_resource type="Texture2D" uid="uid://d3tk2mt0x05tx" path="res://assets/textures/spark_particles.png" id="9_qtwm1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s8ffj"]

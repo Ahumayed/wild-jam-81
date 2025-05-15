@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bw04hg3dbjm46"]
 
 [ext_resource type="PackedScene" uid="uid://camqqqwadhrk" path="res://scenes/drone/drone.tscn" id="4_74lek"]
-[ext_resource type="PackedScene" uid="uid://d35nbh261tagy" path="res://scenes/item/flare_item.tscn" id="4_j5jx5"]
+[ext_resource type="PackedScene" path="res://scenes/item/flare_item.tscn" id="4_j5jx5"]
 [ext_resource type="PackedScene" uid="uid://dtp7hc1rsj1wx" path="res://scenes/game_world_environment.tscn" id="5_at5dv"]
 [ext_resource type="PackedScene" uid="uid://c27joho5gf3pm" path="res://scenes/collectable/collectable.tscn" id="5_j5jx5"]
 [ext_resource type="PackedScene" uid="uid://tixhp8xqbeqw" path="res://scenes/cave_tile_map.tscn" id="5_lpvoh"]

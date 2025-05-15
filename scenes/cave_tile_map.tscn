@@ -280,7 +280,7 @@ metadata/_custom_type_script = "uid://bapwa4yp3pqcq"
 
 [node name="CaveGenerator" type="Node2D" parent="."]
 script = ExtResource("3_tk525")
-cave_size = Vector2i(100, 500)
+cave_size = Vector2i(100, 2000)
 wall_probability = 47
 thread_count = 8
 metadata/_custom_type_script = "uid://b0f1gdlj1f55x"

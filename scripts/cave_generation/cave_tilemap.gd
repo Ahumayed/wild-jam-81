@@ -12,6 +12,11 @@ var cave = null
 func _ready() -> void:
 	_generate_cave()
 
+# # For debugging purposes
+# func _process(_delta: float) -> void:
+# 	if Input.is_action_just_pressed("fly_up"):
+# 		_generate_cave()
+
 func _generate_cave() -> void:
 	cave = cave_generator.generate_cave()
 

@@ -70,6 +70,8 @@ func _random_fill(cave: Cave, rng: RandomNumberGenerator) -> void:
 				cave.walls[pos] = false
 
 func _apply_cellular_automata(cave: Cave, from: Vector2i, to: Vector2i) -> void:
+	var wall_adjacencies := {}
+	var nearby_walls := {}
 	for i in range(iteration_count):
 		for y in range(from.y, to.y):
 			for x in range(from.x, to.x - 1):
@@ -79,18 +81,22 @@ func _apply_cellular_automata(cave: Cave, from: Vector2i, to: Vector2i) -> void:
 					cave.walls[pos] = true
 					continue
 
-				var wall_count: int = _get_wall_count(cave.walls, pos)
-				var nearby_wall_count := _get_nearby_wall_count(cave, pos)
+				if not (pos in wall_adjacencies):
+					wall_adjacencies[pos] = _get_wall_count(cave.walls, pos)
+					nearby_walls[pos] = _get_nearby_wall_count(cave, pos)
 
-				if wall_count >= 5 or nearby_wall_count <= 2:
+				if wall_adjacencies[pos] >= 5 or nearby_walls[pos] <= 2:
 					if not cave.walls[pos]:
-						wall_count += 1
+						wall_adjacencies[pos] += 1
 
 					cave.walls[pos] = true
 				else:
 					cave.walls[pos] = false
 				
-				if wall_count >= 5:
+				if wall_adjacencies[pos] >= 5:
+					if not cave.walls[pos]:
+						wall_adjacencies[pos] += 1
+
 					cave.walls[pos] = true
 				else:
 					cave.walls[pos] = false
