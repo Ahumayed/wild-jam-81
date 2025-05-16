@@ -2,7 +2,7 @@ class_name CaveTileMap
 extends TileMapLayer
 
 @export var cave_background_tile := Vector2i(0, 3)
-@export var source_id: int = 0
+@export var source_id: int = 1
 @export var gem_count: int = 4
 @export var auto_generate: bool = true
 
