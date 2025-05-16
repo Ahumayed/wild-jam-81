@@ -20,8 +20,6 @@ zoom = Vector2(2, 2)
 
 [node name="Collectable" parent="." instance=ExtResource("5_j5jx5")]
 position = Vector2(645, 504)
-outer_radius = 10.0
-inner_radius = 5.0
 
 [node name="FlareItem" parent="." instance=ExtResource("4_j5jx5")]
 position = Vector2(110, 95)

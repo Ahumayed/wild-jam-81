@@ -5,6 +5,7 @@ extends Node2D
 @export var iteration_count := 5
 @export var wall_probability: int = 40
 @export var make_bridges: bool = true
+@export var gem_count: int = 10
 @export var thread_count: int = 1
 
 const DIRECTIONS = [
@@ -25,7 +26,7 @@ func _generate_cave(gen_seed: int) -> Cave:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = gen_seed
 
-	var cave := Cave.new(cave_size)
+	var cave := Cave.new(cave_size, gem_count)
 
 	_random_fill(cave, rng)
 
@@ -50,7 +51,7 @@ func _generate_cave(gen_seed: int) -> Cave:
 	for thread in threads:
 		thread.wait_to_finish()
 
-	_find_rooms(cave)
+	_find_rooms(cave, rng)
 
 	return cave
 
@@ -101,14 +102,14 @@ func _apply_cellular_automata(cave: Cave, from: Vector2i, to: Vector2i) -> void:
 				else:
 					cave.walls[pos] = false
 
-func _find_rooms(cave: Cave) -> void:
+func _find_rooms(cave: Cave, rng: RandomNumberGenerator) -> void:
 	var visited: Dictionary[Vector2i, bool] = {}
 
 	for cell: Vector2i in cave.walls:
 		if cave.walls[cell] or cell in visited:
 			continue
 
-		var room := _flood_fill(cave, visited, cell)
+		var room := _flood_fill(cave, visited, cell, rng)
 		
 		if room.cells.size() < cave.room.cells.size():
 			for pos in room.cells:
@@ -118,8 +119,12 @@ func _find_rooms(cave: Cave) -> void:
 				cave.walls[pos] = true
 			cave.room = room
 
-func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i) -> Room:
-	var room := Room.new()
+func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i, rng: RandomNumberGenerator) -> Room:
+	var y_ranges: Array[Array] = []
+	for i in range(gem_count):
+		y_ranges.append([])
+
+	var room := Room.new(gem_count)
 	room.cells = [from]
 
 	var current_cells := [from]
@@ -129,16 +134,26 @@ func _flood_fill(cave: Cave, visited: Dictionary[Vector2i, bool], from: Vector2i
 		if cell in visited:
 			continue
 		
+
 		visited[cell] = true
 		room.cells.append(cell)
+
+		var cell_y_index: int = floor(float(cell.y) / cave.gem_y_range)
+		y_ranges[cell_y_index].append(cell)
+
 		var surrounding := _get_surrounding_cells(cave.walls, cell)
 		
 		for neighbor in surrounding:
 			current_cells.append(neighbor)
+	
+	for y_range in y_ranges:
+		if y_range.size() == 0:
+			continue
 
-		var walls := _get_surrounding_walls(cave.walls, cell)
-		for wall in walls:
-			room.walls.append(wall, wall.y)
+		var idx := rng.randi_range(0, y_range.size() - 1)
+		var gem_location: Vector2i = y_range[idx]
+
+		room.gem_locations.append(gem_location)
 
 	return room
 
@@ -199,8 +214,10 @@ class Cave:
 	var walls: Dictionary[Vector2i, bool]
 	var size: Vector2i
 	var room: Room
+	var gem_y_range: int
 
-	func _init(_size: Vector2i) -> void:
+	func _init(_size: Vector2i, gem_count: int) -> void:
 		size = _size
 		walls = {}
-		room = Room.new()
+		room = Room.new(gem_count)
+		gem_y_range = floor(float(size.y) / gem_count)

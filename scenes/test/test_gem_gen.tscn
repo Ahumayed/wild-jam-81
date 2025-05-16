@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1wk3rjxg0pi"]
+
+[ext_resource type="PackedScene" uid="uid://tixhp8xqbeqw" path="res://scenes/cave_tile_map.tscn" id="1_62ew2"]
+
+[node name="TestGemGen" type="Node2D"]
+
+[node name="CaveTileMap" parent="." instance=ExtResource("1_62ew2")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(0.1, 0.1)

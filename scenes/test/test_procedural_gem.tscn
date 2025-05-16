@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://pyde4b5g3yw0"]
+
+[ext_resource type="PackedScene" uid="uid://c27joho5gf3pm" path="res://scenes/collectable/collectable.tscn" id="1_m12na"]
+[ext_resource type="Script" uid="uid://bmi43j4liad6l" path="res://scripts/collectable/collectable_generator.gd" id="2_1r7pg"]
+
+[node name="TestProceduralGem" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollectableGenerator" type="Node2D" parent="."]
+script = ExtResource("2_1r7pg")
+shape_range = Vector2i(1, 4)
+metadata/_custom_type_script = "uid://bmi43j4liad6l"
+
+[node name="Collectable" parent="CollectableGenerator" instance=ExtResource("1_m12na")]
