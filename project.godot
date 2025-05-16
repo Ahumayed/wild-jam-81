@@ -31,6 +31,7 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
+"res://addons/": "pink",
 "res://assets/": "blue",
 "res://scenes/": "red",
 "res://scripts/": "green"
