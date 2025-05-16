@@ -620,7 +620,11 @@ metadata/_custom_type_script = "uid://bapwa4yp3pqcq"
 
 [node name="CaveGenerator" type="Node2D" parent="."]
 script = ExtResource("3_tk525")
-cave_size = Vector2i(100, 2000)
+cave_size = Vector2i(100, 500)
 wall_probability = 47
-thread_count = 8
+thread_count = 16
 metadata/_custom_type_script = "uid://b0f1gdlj1f55x"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(0.1, 0.1)
