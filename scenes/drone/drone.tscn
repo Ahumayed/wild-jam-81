@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://camqqqwadhrk"]
+[gd_scene load_steps=24 format=3 uid="uid://vl5p10mt3ypw"]
 
 [ext_resource type="Script" uid="uid://bg84rxaiikf2w" path="res://scripts/drone/drone.gd" id="1_xanut"]
 [ext_resource type="PackedScene" uid="uid://cko71ueel3o3x" path="res://scenes/drone/smoke_particles.tscn" id="2_q43q2"]
@@ -8,9 +8,9 @@
 [ext_resource type="Script" uid="uid://cgdrkinve8cx0" path="res://scripts/util/health_component.gd" id="6_5e86u"]
 [ext_resource type="Script" uid="uid://dm6vu7y5y02l2" path="res://scripts/drone/progress_bar.gd" id="7_nfagk"]
 [ext_resource type="Texture2D" uid="uid://b33vxll0ng1cb" path="res://assets/textures/light.png" id="8_uli58"]
-[ext_resource type="Script" path="res://scripts/util/hitbox_component.gd" id="9_q43q2"]
+[ext_resource type="Script" uid="uid://doxkcmea2vy8m" path="res://scripts/util/hitbox_component.gd" id="9_q43q2"]
 [ext_resource type="Texture2D" uid="uid://d3tk2mt0x05tx" path="res://assets/textures/spark_particles.png" id="9_qtwm1"]
-[ext_resource type="AudioStream" uid="uid://cuw32f7ul647q" path="res://assets/sfx/drone_engine.ogg" id="5_315ty"]
+[ext_resource type="AudioStream" uid="uid://cuw32f7ul647q" path="res://assets/sfx/drone_engine.ogg" id="11_lx3ho"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s8ffj"]
 friction = 0.4
@@ -129,8 +129,6 @@ vframes = 4
 
 [node name="ItemManager" type="Area2D" parent="."]
 script = ExtResource("5_315ty")
-min_radius = 35.0
-torque = 100.0
 metadata/_custom_type_script = "uid://q4q3rd6nnv1k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemManager"]
@@ -185,9 +183,11 @@ color = Color(0, 2, 2, 1)
 anim_speed_min = 3.0
 anim_speed_max = 3.0
 
-[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
-[connection signal="health_changed" from="HealthComponent" to="ProgressBar" method="_on_health_component_health_changed"]
 [node name="EngineAudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_315ty")
+stream = ExtResource("11_lx3ho")
+volume_db = -30.0
 autoplay = true
 bus = &"SFX"
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="health_changed" from="HealthComponent" to="ProgressBar" method="_on_health_component_health_changed"]

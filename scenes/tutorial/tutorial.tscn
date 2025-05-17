@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://x23jm72oxruj"]
 
 [ext_resource type="PackedScene" uid="uid://tixhp8xqbeqw" path="res://scenes/cave_tile_map.tscn" id="1_jaenq"]
-[ext_resource type="PackedScene" uid="uid://camqqqwadhrk" path="res://scenes/drone/drone.tscn" id="2_bmltb"]
+[ext_resource type="PackedScene" uid="uid://vl5p10mt3ypw" path="res://scenes/drone/drone.tscn" id="2_bmltb"]
 [ext_resource type="Texture2D" uid="uid://cxbf0lu4u3ykq" path="res://assets/textures/small_mushroom.png" id="3_g40di"]
 [ext_resource type="Texture2D" uid="uid://b33vxll0ng1cb" path="res://assets/textures/light.png" id="4_r23bs"]
 [ext_resource type="PackedScene" uid="uid://dtp7hc1rsj1wx" path="res://scenes/game_world_environment.tscn" id="5_r23bs"]
@@ -69,14 +69,6 @@ energy = 1.66
 texture = ExtResource("4_r23bs")
 texture_scale = 1.65
 
-[node name="Drone" parent="." instance=ExtResource("2_bmltb")]
-position = Vector2(169, 124)
-
-[node name="Camera2D" type="Camera2D" parent="Drone"]
-zoom = Vector2(2.06, 2.06)
-limit_left = 0
-limit_top = 0
-
 [node name="WorldEnvironment" parent="." instance=ExtResource("5_r23bs")]
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -110,3 +102,13 @@ scroll_active = false
 
 [node name="FlareItem" parent="." instance=ExtResource("7_g7eoy")]
 position = Vector2(551, 339)
+
+[node name="Drone" parent="." instance=ExtResource("2_bmltb")]
+position = Vector2(173, 131)
+
+[node name="Camera2D" type="Camera2D" parent="Drone"]
+zoom = Vector2(1.8, 1.8)
+limit_left = 0
+limit_top = 0
+limit_right = 1150
+limit_bottom = 650
