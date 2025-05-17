@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cko71ueel3o3x"]
+
+[ext_resource type="Texture2D" uid="uid://bsl48uec63af7" path="res://assets/textures/particles/circles.png" id="1_vs4m0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_aqo7c"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_j1ma2"]
+colors = PackedColorArray(0.313726, 0.313726, 0.313726, 1, 0, 0, 0, 0)
+
+[node name="SmokeParticles" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_aqo7c")
+emitting = false
+texture = ExtResource("1_vs4m0")
+lifetime = 1.2
+emission_shape = 1
+emission_sphere_radius = 3.0
+spread = 180.0
+gravity = Vector2(0, -91)
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+color_ramp = SubResource("Gradient_j1ma2")
+anim_offset_min = 0.5
+anim_offset_max = 0.75

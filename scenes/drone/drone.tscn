@@ -1,28 +1,19 @@
-[gd_scene load_steps=25 format=3 uid="uid://camqqqwadhrk"]
+[gd_scene load_steps=23 format=3 uid="uid://camqqqwadhrk"]
 
-[ext_resource type="Texture2D" uid="uid://bsl48uec63af7" path="res://assets/textures/particles/circles.png" id="1_pae44"]
 [ext_resource type="Script" uid="uid://bg84rxaiikf2w" path="res://scripts/drone/drone.gd" id="1_xanut"]
+[ext_resource type="PackedScene" uid="uid://cko71ueel3o3x" path="res://scenes/drone/smoke_particles.tscn" id="2_q43q2"]
 [ext_resource type="PackedScene" uid="uid://c44qbyfhbgp7k" path="res://scenes/drone/spark_particles.tscn" id="2_ws74u"]
 [ext_resource type="Texture2D" uid="uid://cejco36cbu4qe" path="res://assets/textures/drone.png" id="3_361hk"]
 [ext_resource type="Script" uid="uid://q4q3rd6nnv1k" path="res://scripts/item/item_manager.gd" id="5_315ty"]
 [ext_resource type="Script" uid="uid://cgdrkinve8cx0" path="res://scripts/util/health_component.gd" id="6_5e86u"]
 [ext_resource type="Script" uid="uid://dm6vu7y5y02l2" path="res://scripts/drone/progress_bar.gd" id="7_nfagk"]
 [ext_resource type="Texture2D" uid="uid://b33vxll0ng1cb" path="res://assets/textures/light.png" id="8_uli58"]
-[ext_resource type="Script" uid="uid://doxkcmea2vy8m" path="res://scripts/util/hitbox_component.gd" id="9_q43q2"]
+[ext_resource type="Script" path="res://scripts/util/hitbox_component.gd" id="9_q43q2"]
 [ext_resource type="Texture2D" uid="uid://d3tk2mt0x05tx" path="res://assets/textures/spark_particles.png" id="9_qtwm1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s8ffj"]
 friction = 0.4
 bounce = 0.3
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_aqo7c"]
-particles_animation = true
-particles_anim_h_frames = 3
-particles_anim_v_frames = 2
-particles_anim_loop = false
-
-[sub_resource type="Gradient" id="Gradient_j1ma2"]
-colors = PackedColorArray(0.313726, 0.313726, 0.313726, 1, 0, 0, 0, 0)
 
 [sub_resource type="Curve" id="Curve_nfagk"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.585573, 0.911063), 1.42809, 1.42809, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -111,20 +102,7 @@ script = ExtResource("1_xanut")
 disable_velocity_threshold = 100.0
 sparks_velocity_threshold = 20.0
 
-[node name="SmokeParticles" type="CPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_aqo7c")
-emitting = false
-texture = ExtResource("1_pae44")
-lifetime = 1.2
-emission_shape = 1
-emission_sphere_radius = 3.0
-spread = 180.0
-gravity = Vector2(0, -91)
-angular_velocity_min = -20.0
-angular_velocity_max = 20.0
-color_ramp = SubResource("Gradient_j1ma2")
-anim_offset_min = 0.5
-anim_offset_max = 0.75
+[node name="SmokeParticles" parent="." instance=ExtResource("2_q43q2")]
 
 [node name="SparkParticles" parent="." instance=ExtResource("2_ws74u")]
 amount = 20

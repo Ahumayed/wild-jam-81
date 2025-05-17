@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpgk7i84cgnk5"]
+
+[ext_resource type="Texture2D" uid="uid://c5mjxn6hy24fk" path="res://assets/textures/space_ship.png" id="1_yjqpq"]
+[ext_resource type="PackedScene" uid="uid://cko71ueel3o3x" path="res://scenes/drone/smoke_particles.tscn" id="2_4bx60"]
+[ext_resource type="Script" uid="uid://lpyd32klaiwp" path="res://scripts/dialogue.gd" id="3_4bx60"]
+[ext_resource type="FontFile" uid="uid://c3upl2wvde5o1" path="res://assets/font/Salmon Typewriter 9 Regular.ttf" id="4_i2l1n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4bx60"]
+
+[node name="Intro" type="AspectRatioContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpaceShip" type="Sprite2D" parent="."]
+position = Vector2(111, 533)
+scale = Vector2(12.6724, 12.6724)
+texture = ExtResource("1_yjqpq")
+
+[node name="SmokeParticles" parent="SpaceShip" instance=ExtResource("2_4bx60")]
+position = Vector2(4.49796, 3.94558)
+emitting = true
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+
+[node name="SmokeParticles2" parent="SpaceShip" instance=ExtResource("2_4bx60")]
+position = Vector2(-4.34014, -0.157825)
+emitting = true
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4bx60")
+script = ExtResource("3_4bx60")
+
+[node name="Label" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("4_i2l1n")
+bbcode_enabled = true
+
+[node name="Timer" type="Timer" parent="Panel"]
+wait_time = 0.05
+
+[connection signal="timeout" from="Panel/Timer" to="Panel" method="_on_timer_timeout"]

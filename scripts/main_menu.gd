@@ -1,6 +1,7 @@
 extends AspectRatioContainer
 
-@export var main_scene: String = "res://scenes/test.tscn"
+@export var main_scene: String = "res://scenes/intro.tscn"
+@export var tutorial_scene: String = "res://scenes/tutorial/tutorial.tscn"
 @export var settings_menu_scene: String = "res://scenes/settings_menu.tscn"
 
 func _ready() -> void:
@@ -16,3 +17,7 @@ func _on_play_button_pressed() -> void:
 
 func _on_settings_button_pressed() -> void:
 	Global.change_scene(settings_menu_scene)
+
+
+func _on_tutorial_button_pressed() -> void:
+	Global.change_scene(tutorial_scene)

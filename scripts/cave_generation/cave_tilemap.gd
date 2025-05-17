@@ -2,15 +2,17 @@ class_name CaveTileMap
 extends TileMapLayer
 
 @export var cave_background_tile := Vector2i(0, 3)
-@export var source_id: int = 0
+@export var source_id: int = 1
 @export var gem_count: int = 4
+@export var auto_generate: bool = true
 
 @onready var cave_generator: CaveGenerator = $CaveGenerator
 
 var cave = null
 
 func _ready() -> void:
-	_generate_cave()
+	if auto_generate:
+		_generate_cave()
 
 # # For debugging purposes
 # func _process(_delta: float) -> void:
