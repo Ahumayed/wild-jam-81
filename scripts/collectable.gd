@@ -8,8 +8,10 @@ extends Node2D
 @export var inner_radius: float = 50.0
 @export var rotation_speed: Vector3 = Vector3(1, 1, 0)
 
+
 @onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
 @onready var point_light_2d: PointLight2D = $PointLight2D
+@onready var pulse_audio_stream_player: AudioStreamPlayer2D = $PulseAudioStreamPlayer
 
 var shapes: Array[Shape2D3D] = []
 var drawn_shape: Array = []
